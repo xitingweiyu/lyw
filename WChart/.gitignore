@@ -1,0 +1,15 @@
+/.settings
+/target
+/bin
+/.myeclipse
+/.classpath
+/.mymetadata
+/.project
+/src/main/webapp/WEB-INF/classes/
+/src/main/resources/database.properties
+/.myumldata
+/.idea/
+/src/main/webapp/WEB-INF/lib/
+/classes
+/wchart.iml
+/out

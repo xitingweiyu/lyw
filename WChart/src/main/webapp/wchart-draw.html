@@ -1,0 +1,312 @@
+<!-- 画图基本样式 -->
+<link rel="stylesheet" href="page-style/wchart/draw/basic.css">
+
+<div class="tab-widget">
+    <!--图表类型-->
+    <div class="col-lg-3 draw">
+        <div class="panel-group" id="drawType" role="tablist">
+            <!--柱形图-->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#drawType" href="#drawType-bar"
+                           onclick="DrawSelectType(this)">
+                            <div></div>
+                            <div>柱形图</div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="drawType-bar" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-bar-1"></div>
+                            <p>基础柱状图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-bar-2"></div>
+                            <p>水平柱状图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-bar-3"></div>
+                            <p>堆积柱形图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-bar-4"></div>
+                            <p>水平堆积图</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--折线图-->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#drawType" href="#drawType-line"
+                           onclick="DrawSelectType(this)">
+                            <div></div>
+                            <div>折线图</div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="drawType-line" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-line-1"></div>
+                            <p>基本折线图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-line-2"></div>
+                            <p>水平折线图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-line-3"></div>
+                            <p>堆积折线图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-line-4"></div>
+                            <p>堆叠区域图</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--饼图-->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#drawType" href="#drawType-pie"
+                           onclick="DrawSelectType(this)">
+                            <div></div>
+                            <div>饼图</div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="drawType-pie" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-pie-1"></div>
+                            <p>基本饼图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-pie-2"></div>
+                            <p>南丁格尔图</p>
+                        </a>
+                        <a class="drawTypeElement" onclick="DrawSelectSecondType(this)">
+                            <div class="drawType-pie-3"></div>
+                            <p>环形饼图</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑区域-->
+    <div class="col-lg-7" id="drawChartTypePage"></div>
+    <!--数据源区域-->
+    <div class="col-lg-2">
+        <div style="border: 1px solid #DDD; border-radius: 5px;">
+            <ul id="draw-tree" class="ztree"></ul>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var currentUrl = window.location.href;
+        currentUrl = "http://localhost:8080/?aid=26&dpIds=1,2,3&userId=2";
+        var tempParam1 = currentUrl.split('?');
+        var tempParam2 = tempParam1[1].split('&');
+        var tempParam3 = tempParam2[1].split('=');
+        var tempParam4 = tempParam2[2].split('=');
+        var tableIds = tempParam3[1];
+        var userId = tempParam4[1];
+        $('#currentUserId').val(userId);
+        DrawInitTableTree(tableIds);
+    });
+
+    /**
+     * Created by LXL on 2016/5/6
+     * <br> 在pageId处加载指定的pageUrl
+     * @param pageId 页面id
+     * @param pageUrl 加载页面
+     */
+    function loadChart(pageUrl) {
+        $('#drawChartTypePage').load("page/" + pageUrl + ".html");
+    }
+
+    /**
+     * Created by LXL on 2016/5/5
+     * <br> 图表类型切换
+     * @param selectType 当前选中的图表
+     */
+    function DrawSelectType(selectType) {
+        $('.panel-primary').attr('class', 'panel panel-default');
+        $(selectType).parent().parent().parent().attr('class', 'panel panel-primary');
+    }
+
+    /**
+     * Created by LXL on 2016/5/5
+     * <br> 图表子类型切换
+     * @param selectType 当前选中的图表
+     */
+    function DrawSelectSecondType(selectType) {
+        // 切换选中状态
+        $('.drawTypeElementSelected').attr('class', 'drawTypeElement');
+        $(selectType).attr('class', 'drawTypeElement drawTypeElementSelected');
+
+        // 加载相应图表页面
+        var chartType = $(selectType).find('div').attr('class').substr(9);
+
+        $('#drawChartTypePage').load("page/" + chartType + ".html", function () {
+            // 判断是否选择数据并给出相应提示
+            var treeObj = $.fn.zTree.getZTreeObj('draw-tree');
+            var nodes = treeObj.getSelectedNodes();
+            if (nodes.length > 0) {
+                if (nodes[0].parentId != -1) {
+                    console.info("插入已选中数据");
+                    DrawChartInsertElement();
+                } else {
+                    console.info("选择字段");
+                }
+            } else {
+                console.info("选择数据");
+            }
+        });
+    }
+
+    function DrawInitTableTree(tableIds) {
+
+        // AJAX参数
+        var param = {
+            'tableIds': tableIds
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/wchart/draw/initTableTree',
+            data: param,
+            success: function (ReturnMsg) {
+                console.info("【ReturnMsg】的内容是 -----> %o", ReturnMsg);
+                var returnCode = ReturnMsg.code;
+                var returnMsg = ReturnMsg.msg;
+                var returnResult = ReturnMsg.result;
+
+                if (1 == returnCode) {
+                    var setting = {
+                        data: { // 数据格式
+                            simpleData: {
+                                enable: true,
+                                idKey: 'id',
+                                pIdKey: 'parentId',
+                                rootPId: -1
+                            }
+                        },
+                        async: { // 异步加载设置
+                            enable: true,
+                            url: "api/wchart/draw/asynDrawTree",
+                            autoParam: ["id", "realId"],
+                            type: "post",
+                            dataFilter: DrawAsynTree
+                        },
+                        callback: {
+                            onClick: DrawTreeLeftClick
+                        }
+                    };
+
+                    // 生成目录树
+                    $.fn.zTree.init($('#draw-tree'), setting, returnResult);
+                    //$.pnotify({title: '提示', text: "分享成功", type: 'success', delay: 3000});
+                }
+                else {
+                    //$.pnotify({title: '提示', text: returnMsg, type: 'info', delay: 3000});
+                }
+            }
+        });
+    }
+
+    function DrawAsynTree(treeId, parentNode, responseData) {
+        var returnResult = responseData.result;
+        return returnResult;
+    }
+
+    function DrawTreeLeftClick(event, treeId, treeNode) {
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandNode(treeNode, true, false);
+        if (treeNode.parentId != -1) {
+            if ($('.drawTypeElementSelected').length > 0) {
+                console.info("插入数据");
+                DrawChartInsertElement();
+            } else {
+                console.info("选择图表类型");
+            }
+        }
+    }
+
+    function DrawChartTitle() {
+        var title = $('#drawChartElementTitle').val();
+        if (title == "") {
+            $('#drawChartPreview > h3').html('?&nbsp;?&nbsp;?');
+        } else {
+            $('#drawChartPreview > h3').html(title);
+        }
+    }
+
+    function DrawChartDescription() {
+        var description = $('#drawChartElementDescription').val();
+        if (description == "") {
+            $('#drawChartPreview > h6').html('?&nbsp;?&nbsp;?&nbsp;?&nbsp;?&nbsp;?');
+        } else {
+            $('#drawChartPreview > h6').html(description);
+        }
+    }
+
+    function DrawChartInsertElement() {
+
+        var chartType = $('.drawTypeElementSelected').find('div').attr('class').substr(9);
+        var treeObj = $.fn.zTree.getZTreeObj('draw-tree');
+        var nodes = treeObj.getSelectedNodes();
+        var columnObj = nodes[0];
+        var tableObj = treeObj.getNodeByTId(columnObj.parentTId);
+
+        switch (chartType) {
+            case 'bar-1':
+                Bar1InsertElementOfXAxis(tableObj,columnObj);
+                Bar1InsertElementOfYAxis(tableObj,columnObj);
+                break;
+            case 'bar-2':
+                Bar2InsertElementOfXAxis(tableObj,columnObj);
+                Bar2InsertElementOfYAxis(tableObj,columnObj);
+                break;
+            case 'line-1':
+                Line1InsertElementOfXAxis(tableObj,columnObj);
+                Line1InsertElementOfYAxis(tableObj,columnObj);
+                break;
+            case 'line-2':
+                Line2InsertElementOfXAxis(tableObj,columnObj);
+                Line2InsertElementOfYAxis(tableObj,columnObj);
+                break;
+            case 'line-3':
+                Line3InsertElementOfXAxis(tableObj,columnObj);
+                Line3InsertElementOfYAxis(tableObj,columnObj);
+                break;
+
+            case 'pie-1':
+                Pie1InsertElementOfXAxis(tableObj,columnObj);
+                Pie1InsertElementOfYAxis(tableObj,columnObj);
+                break;
+                break;
+            case 'pie-2':
+                Pie2InsertElementOfXAxis(tableObj,columnObj);
+                Pie2InsertElementOfYAxis(tableObj,columnObj);
+                break;
+            case 'pie-3':
+                Pie3InsertElementOfXAxis(tableObj,columnObj);
+                Pie3InsertElementOfYAxis(tableObj,columnObj);
+                break;
+
+        }
+    }
+</script>
