@@ -1,0 +1,157 @@
+body{
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+    margin:0px auto auto auto;
+    background-color: aliceblue;
+}
+
+h2{
+    height: 21px;
+    width: 92px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4d2507;
+    margin: 0px;
+    padding: 6px 15px 10px 15px;
+    background: url(images/titles_bg2.gif) repeat-x top;
+
+}
+
+/*------------------------general style---------------------------------*/
+
+
+
+/*-----------------------main container----------------------------------*/
+#main_container{
+    width:960px;
+    height:auto;
+    margin:auto;
+    padding:0px 0 20px 0;
+}
+
+.header{
+    width:960px;
+    height:150px;
+    margin:auto;
+}
+.logo{
+    width:960px;
+    text-align:center;
+    padding:5px 0 0 0;
+    font-size:48px;
+    color:#f9c552;
+}
+.description{
+    width:960px;
+    text-align:center;
+    padding:0px 0 0 0px;
+    font-size:12px;
+    color:#000;
+}
+.content{
+    width:960px;
+    height:515px;
+    margin:auto;
+    background-color: cornsilk;
+}
+.content_top{
+    height: 450px;
+    margin:auto;
+    background-color: cornsilk;
+}
+.content_bottom{
+    height: 111px;
+    margin:auto;
+    background-color: aqua;
+}
+
+div .layout{
+    width: 960px;
+    height: 450px;
+    float: left;
+    margin:0px 0 0 0;
+    padding: 35px 0px 0px 28px;
+}
+
+.introduction_left{
+    width:30%;
+    height: 450px;
+    float: left;
+    background-color: aquamarine;
+}
+
+ul.layout{
+    width:200px;
+    height:auto;
+    list-style-type: none;
+    float: left;
+    margin:0px 0 0 0;
+    padding:35px 0 0 28px;
+}
+
+ul.layout li{
+    width: 200px;
+    height:35px;
+    margin: 0px 0 0 0;
+    float: left;
+
+}
+
+ul.layout li a {
+    width:200px;
+    height:35px;
+    float:left;
+    display:block;
+    border-bottom:1px #ccb49e dotted;
+    color: chocolate;
+    line-height:35px;
+    font-size:18px;
+    text-decoration:none;
+}
+
+ul.layout li a.active{
+    width:175px;
+    height:35px;
+    float:left;
+    display:block;
+    border-bottom:1px #ccb49e dotted;
+    no-repeat:left;
+    padding:0 0 0 25px;
+    color:#f9c552;
+}
+
+ul.layout li a:hover{
+    no-repeat:left;
+    padding:0 0 0 25px;
+    width:175px;
+    color:#f9c552;
+}
+
+.photo{
+    width: 150px;
+    height: 160px;
+    float: left;
+    margin: 40px 0 0 55px;
+    position: relative;
+    clear: both;
+}
+
+.introduction_right{
+    height:430px;
+    float: left;
+    width:570px;
+    padding:20px 0 0 50px;
+    background-color: darkseagreen;
+}
+
+.tab{
+    padding:0 0 0 0;
+}
+
+.content_info{
+    width: 570px;
+    height:200px;
+}
+
