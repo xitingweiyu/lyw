@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ch-cn">
+<head>
+    　　<meta charset="utf-8">
+    　　
+    <style type="text/css">
+
+        #scrollBox{
+            overflow: hidden;
+            width: 40%;
+            height: 200px;
+            float: left;
+            display: inline;
+            margin: 15% 25% ;
+            border:#909090 1px solid;
+            background:#fff;color:#333;
+            filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+            -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+            -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+            box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+        }
+
+        #scrollBox ul
+        {
+            text-align: left;
+            margin: 0px;
+            padding: 0px;
+
+        }
+        #scrollBox ul li
+        {
+            margin-left: 5px;
+            display: block;
+            padding: 10px;
+            font-size: 15px;
+            text-align: center;
+            height: 10px;
+            padding-top: 10px;
+        }
+        #scrollBox ul li a{
+             font-family: "微软雅黑", "黑体", "新宋体", "Arial Unicode MS";
+            font-size: large;
+        }
+
+
+    </style>
+</head>
+<body class="bodyStyle">
+        <div id="scrollBox">
+            <ul  id="con1">
+                <li><a href="#">1、无缝滚动</a></li>
+                <li><a href="#">2、无缝滚动</a></li>
+                <li><a href="#">3、无缝滚动</a></li>
+                <li><a href="#">4、无缝滚动</a></li>
+                <li><a href="#">5、无缝滚动</a></li>
+                <li><a href="#">6、无缝滚动</a></li>
+                <li><a href="#">7、无缝滚动</a></li>
+                <li><a href="#">8、无缝滚动</a></li>
+                <li><a href="#">9、无缝滚动</a></li>
+                <li><a href="#">10、无缝滚动</a></li>
+            </ul>
+            <ul id ="con2">
+            </ul>
+        </div>
+    <script >
+        /*var scrollTop = window.pageYOffset|| document.documentElement.scrollTop || document.body.scrollTop;*/
+      var scrollBox = document.getElementById("scrollBox");
+      var con1 = document.getElementById("con1");
+      var con2 = document.getElementById("con2");
+
+      con2.innerHTML=con1.innerHTML;
+
+      function Marquee1(){
+          if((con2.offsetHeight-scrollBox.scrollTop)<= 0)
+              scrollBox.scrollTop-=con1.offsetHeight;
+          else{
+              scrollBox.scrollTop++;
+          }
+      }
+      var speed=60;
+      var MyMar1=setInterval(Marquee1,speed);
+        scrollBox.onmouseover=function() {clearInterval(MyMar1)};
+        scrollBox.onmouseout=function() {MyMar1=setInterval(Marquee1,speed)}
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+<!--
+<!DOCTYPE html >
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+         #demo
+        {
+             overflow: hidden;
+             width: 40%;
+             height: 200px;
+             float: left;
+             display: inline;
+             margin: 15% 25% ;
+             border:#909090 1px solid;
+             background:#fff;color:#333;
+             filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+             -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+             -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+             box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+        }
+        #demo ul
+        {
+            text-align: left;
+            margin: 0px;
+            padding: 0px;
+
+        }
+        #demo ul li
+        {
+            margin-left: 5px;
+            display: block;
+           padding: 10px;
+            font-size: 15px;
+            text-align: center;
+            height: 10px;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+        <div id="demo1">
+            <ul>
+                <li><a>1、无缝滚动效果显示</a></li>
+                <li><a>2、无缝滚动效果显示</a></li>
+                <li><a>3、无缝滚动效果显示</a></li>
+                <li><a>4、无缝滚动效果显示</a></li>
+                <li><a>5、无缝滚动效果显示</a></li>
+                <li><a>6、无缝滚动效果显示</a></li>
+                <li><a>7、无缝滚动效果显示</a></li>
+                <li><a>8、无缝滚动效果显示</a></li>
+                <li><a>9、无缝滚动效果显示</a></li>
+                <li><a>10、无缝滚动效果显示</a></li>
+            </ul>
+        </div>
+        <div id="demo2">
+        </div>
+  </div>
+
+
+
+    <script type="text/javascript">
+        //文字无间断滚动代码，兼容IE、Firefox、Opera
+        var speed=60;
+        var FGDemo=document.getElementById('demo');
+        var FGDemo1=document.getElementById('demo1');
+        var FGDemo2=document.getElementById('demo2');
+        FGDemo2.innerHTML=FGDemo1.innerHTML
+        function Marquee1(){
+            if((FGDemo2.offsetHeight-FGDemo.scrollTop)<= 0)
+                FGDemo.scrollTop-=FGDemo1.offsetHeight;
+            else{
+                FGDemo.scrollTop++
+            }
+        }
+
+        var MyMar1=setInterval(Marquee1,speed);
+        FGDemo.onmouseover=function() {clearInterval(MyMar1)};
+        FGDemo.onmouseout=function() {MyMar1=setInterval(Marquee1,speed)}
+    </script>
+
+
+</body>
+</html>
+
+
+-->
