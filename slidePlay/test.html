@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="/test/css/style.css" rel="stylesheet" >
+    <link href="/test/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/test/js/jquery-1.10.2.min.js"></script>
+    <script src="/test/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .init{ margin-left: 0px;}
+        .modal-content{ width:940px;margin-top: 60px;margin-left:-175px;}
+    </style>
+</head>
+
+<body>
+<div>
+    <h2>创建模态框（Modal）</h2>
+    <!-- 按钮触发模态框 -->
+    <a href="#myModal" data-toggle="modal" onclick="showModal()"
+       id="add_data_grade_button" class="btn btn-warning">新增</a>
+</div>
+
+<!-- 模态框（Modal） start-->
+<div class="modal fade bs-modal-example-sm" id="myModal" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title" style="text-align: left;margin-top: -5px;">工具介绍</h4>
+            </div>
+            <div class="modal-body">
+                <div class="widget">
+                    <!--介绍具体内容-->
+                    <div id="banner_tabs" class="flexslider" style="padding-top: 100px;margin-top: -30px;background-color: #f1f1f1">
+                        <ul class="slides">
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init" >
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">1/7</h2>
+                                            <h3>Step1：登录Rstudio</h3><br>
+                                            <p>用户启动分析任务，进入Rstudio。</p>
+                                        </div>
+                                        <div class="item">
+                                            <img style="width: 100%;height: 100%;" src="/test/images/1-1/12.png"   />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">2/7</h2>
+                                            <h3>Step2：数据获取</h3><br>
+                                            <p>假定分析任务涉及到两份数据源，分别存储在不同的表中,例如 user_outpatient_volumn, user_air_quality</p>
+                                        </div>
+                                        <div class="item">
+                                            <img   style="width: 100%;height: 100%;" src="/test/images/1-1/13.png"   />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">3/7</h2>
+                                            <br>
+                                            <p>在 RStudio中使用RHive进行数据的获取，并存储在变量 input 中。</p>
+                                        </div>
+                                        <div class="item">
+                                            <img style="width: 100%;height: 100%;"  src="/test/images/1-1/14.png"  />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">4/7</h2>
+                                            <h3>Step3：数据预览</h3><br>
+                                            <p>1) 使用函数 str()查看数据的结构</p>
+                                        </div>
+                                        <div class="item">
+                                            <img  style="width: 100%;height: 100%;"   src="/test/images/1-1/15.png"  />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">5/7</h2>
+                                            <br>
+                                            <p>2) 使用函数head()预览数据</p>
+                                        </div>
+                                        <div class="item">
+                                            <img  style="width: 100%;height: 100%;"   src="/test/images/1-1/16.png"   />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">6/7</h2>
+                                            <h3>Step4：数据挖掘</h3><br>
+                                            <p>应用函数进行数据挖掘，例如：使用 summary()查看数据的基本统计量。</p>
+                                        </div>
+                                        <div class="item">
+                                            <img  style="width: 100%;height: 100%;"  src="/test/images/1-1/17.png"  />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li style="margin-top: 30px;">
+                                <div title="" target="_blank" href="#">
+                                    <div class="init">
+                                        <div class="div1"><h2 style="border-bottom: 1px solid;padding-bottom: 10px;">7/7</h2>
+                                            <h3>Step5：结果展示</h3><br>
+                                            <p>利用Rstudio进行数据挖掘时，数据结果与可视化展现均会同步的在“变量”区与“输出”区显示。用户可以在分析挖掘完成后将最终的成果展示出来。</p>
+                                        </div>
+                                        <div class="item">
+                                            <img style="width: 100%;height: 100%;"   src="/test/images/1-1/18.png"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                         <ul class="flex-direction-nav">
+                            <li><a class="flex-prev" href="javascript:;">Previous</a></li>
+                            <li><a class="flex-next" href="javascript:;">Next</a></li>
+                        </ul>
+                    </div>
+                    <!--介绍具体内容-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--模态框  end-->
+
+<script src="/test/js/jquery-1.10.2.min.js"></script>
+<script src="/test/js/slider.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var bannerSlider = new Slider($('#banner_tabs'), {
+            time: 500000,
+            delay: 400,
+            event: 'hover',
+            auto: true,
+            mode: 'fade',
+            controller: $('#bannerCtrl'),
+            activeControllerCls: 'active'
+        });
+        $('#banner_tabs .flex-prev').click(function() {
+            bannerSlider.prev()
+        });
+        $('#banner_tabs .flex-next').click(function() {
+            bannerSlider.next()
+        });
+    })
+
+
+
+
+</script>
+<script>
+    function showModal(){
+        $("#myModal").modal('show');
+    }
+</script>
+</body>
+</html>
+

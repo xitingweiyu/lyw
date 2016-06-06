@@ -1,0 +1,128 @@
+.element {
+
+}
+
+#drawChartPreview {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#drawChartPreview>a{
+    float: right;
+    width: 60px;
+    height: 30px;
+    line-height: 16px;
+    font-size: 16px;
+    margin: 7px 5px 0 0;
+}
+
+#drawChartPreview > h3 {
+    margin: 0 auto 10px auto;
+    padding: 0;
+    color: #6D6D6D;
+    font-size: 18px;
+}
+
+#drawChartPreview > h6 {
+    margin: 0 auto 10px auto;
+    padding: 0;
+    color: #ADADAD;
+}
+
+#drawChartPreview > hr {
+    margin: 0 0 10px 0;
+}
+
+#drawChartPreview > div {
+    margin: auto;
+    width: 700px;
+    height: 400px;
+}
+
+#drawChartElement {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#drawChartElement .glyphicon-asterisk {
+    color: #D60400;
+}
+
+.draw .panel-heading {
+    padding: 10px;
+}
+
+.draw .panel-default > .panel-heading:hover {
+    background-color: rgba(105, 105, 105, 0.2);
+}
+
+.draw .panel-primary > .panel-heading:hover {
+    background-color: rgba(8, 75, 132, 0.8);
+}
+
+.element .list-group-item {
+    cursor: pointer;
+}
+
+.element .list-group-item > a:nth-child(1) {
+    text-decoration: none;
+}
+
+.element .list-group-item > a:nth-child(2) {
+    float: right;
+}
+.element .list-group-item > a:nth-child(1) {
+    color: #337ab7;
+}
+.element .list-group-item > a:nth-child(2) {
+    color: #FFF;
+}
+.element .list-group-item.active > a:nth-child(1) {
+    color: #fff;
+}
+
+.element .list-group-item.active > a:nth-child(2) {
+    color: #337ab7;
+}
+
+.element .list-group-item:hover {
+    background-color: rgba(200, 200, 200, 0.3);
+}
+.element .list-group-item:hover > a:nth-child(1) {
+    color: #337ab7;
+}
+.element .list-group-item:hover > a:nth-child(2) {
+    color: #337ab7;
+}
+
+.element .list-group-item.active:hover {
+    background-color: rgba(51, 122, 183, 0.9);
+}
+.element .list-group-item.active:hover > a:nth-child(1) {
+    color: #FFF;
+}
+.element .list-group-item.active:hover > a:nth-child(2) {
+    color: #FFF;
+}
+
+.element a:nth-child(2):hover {
+    opacity: 0.8;
+}
+
+.element .list-group {
+    margin-bottom: 0;
+}
+
+.element.panel {
+    margin-bottom: 0;
+}

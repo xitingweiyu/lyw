@@ -1,0 +1,365 @@
+<!--堆积折线图-->
+<div class="row">
+    <!--预览区-->
+    <div id="drawChartPreview">
+        <a class="btn btn-primary" onclick="Line3Save()">保存</a>
+        <h3>?&nbsp;?&nbsp;?</h3>
+        <h6>?&nbsp;?&nbsp;?&nbsp;?&nbsp;?&nbsp;?</h6>
+        <hr>
+        <div id="drawChartPreviewChart"></div>
+    </div>
+</div>
+<div class="row">
+    <!--维度区-->
+    <div id="drawChartElement">
+        <!--标题-->
+        <div class="form-group has-feedback">
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input type="text" class="form-control" id="drawChartElementTitle" placeholder="请输入图表标题"
+                       onkeyup="DrawChartTitle()">
+            </div>
+            <span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+        </div>
+        <!--描述-->
+        <div class="form-group has-feedback">
+            <div class="input-group">
+                <span class="input-group-addon">描述</span>
+                <input type="text" class="form-control" id="drawChartElementDescription" placeholder="请输入图表描述"
+                       onkeyup="DrawChartDescription()">
+            </div>
+            <span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+        </div>
+
+        <div class="row">
+            <!--维度-1-x轴-->
+            <div class="col-lg-6">
+                <div class="panel panel-default element">
+                    <div class="panel-heading">x轴</div>
+                    <div class="panel-body">
+                        <div class="list-group" id="element-1"></div>
+                    </div>
+                </div>
+            </div>
+            <!--维度-2-y轴-->
+            <div class="col-lg-6">
+                <div class="panel panel-default element">
+                    <div class="panel-heading">y轴</div>
+                    <div class="panel-body">
+                        <div class="list-group" id="element-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var drawChartPreviewChartObj = echarts.init(document.getElementById('drawChartPreviewChart'));
+
+    // 指定图表的配置项和数据
+    var drawChartPreviewChartObjOption = {
+    		 tooltip: {
+    	            trigger: 'axis'
+    	        },
+    	        legend: {
+    	            data:['数值1','数值2','数值3']
+    	        },
+
+    	        xAxis: {
+    	            type: 'category',
+    	            boundaryGap: false,
+    	            data: ['样例1','样例2','样例3','样例4','样例5','样例6','样例7']
+    	        },
+    	        yAxis: {
+    	            type: 'value'
+    	        },
+    	        series: [
+    	            {
+    	                name:'数值1',
+    	                type:'line',
+    	                stack: '总量',
+    	                data:[120, 132, 101, 134, 90, 230, 210]
+    	            },
+    	            {
+    	                name:'数值2',
+    	                type:'line',
+    	                stack: '总量',
+    	                data:[220, 182, 191, 234, 290, 330, 310]
+    	            },
+    	            {
+    	                name:'数值3',
+    	                type:'line',
+    	                stack: '总量',
+    	                data:[150, 232, 201, 154, 190, 330, 410]
+    	            }
+    	        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    drawChartPreviewChartObj.setOption(drawChartPreviewChartObjOption);
+
+    function Line3SelectElement(selectElement) {
+        $(selectElement).parent().parent().find('.active').removeClass('active');
+        $(selectElement).parent().addClass('active');
+    }
+
+    function Line3DeleteElement(selectElement) {
+        var isReset = true;
+        var isActive = $(selectElement).parent().hasClass('active');
+        var isLast = $(selectElement).parent().parent().children().length == 1 ? true : false;
+        if (isActive) {
+            isReset = true;
+        } else {
+            if (isLast) {
+                isReset = true;
+            } else {
+                isReset = false;
+            }
+        }
+        $(selectElement).parent().remove();
+        return isReset;
+    }
+
+    function Line3InsertElement(elementId, table, column) {
+        var isInsert = false;
+        var allElement = $('#' + elementId + '').find('input');
+        if (allElement.length == 0) {
+            isInsert = true;
+        } else {
+            var hasSameName = false;
+            $.each(allElement, function (i, e) {
+                var name = table.realName + '-' + column.realName;
+                if ($(e).val() == name) {
+                    hasSameName = true;
+                }
+            });
+            if (!hasSameName) {
+                isInsert = true;
+            }
+        }
+        return isInsert;
+    }
+
+    function Line3InsertElementOfXAxis(table, column) {
+        if (Line3InsertElement('element-1', table, column)) {
+            var elementHtml = '';
+            elementHtml += '<div class="list-group-item">';
+            elementHtml += '<a onclick="Line3SelectElementOfXAxis(this,' + table.realId + ',' + column.realId + ')">';
+            elementHtml += table.name + '&nbsp;-&nbsp;' + column.name;
+            elementHtml += '</a>';
+            elementHtml += '<a onclick="Line3DeleteElementOfXAxis(this)">';
+            elementHtml += '<span class="glyphicon glyphicon-remove"></span>';
+            elementHtml += '</a>';
+            elementHtml += '<input type="hidden" value="' + table.realName + '-' + column.realName + '">';
+            elementHtml += '</div>';
+            $('#element-1').append(elementHtml);
+        }
+    }
+
+    function Line3InsertElementOfYAxis(table, column) {
+        if (Line3InsertElement('element-2', table, column)) {
+            var elementHtml = '';
+            elementHtml += '<div class="list-group-item">';
+            elementHtml += '<a onclick="Line3SelectElementOfYAxis(this,' + table.realId + ',' + column.realId + ')">';
+            elementHtml += table.name + '&nbsp;-&nbsp;' + column.name;
+            elementHtml += '</a>';
+            elementHtml += '<a onclick="Line3DeleteElementOfYAxis(this)">';
+            elementHtml += '<span class="glyphicon glyphicon-remove"></span>';
+            elementHtml += '</a>';
+            elementHtml += '<input type="hidden" value="' + table.realName + '-' + column.realName + '">';
+            elementHtml += '</div>';
+            $('#element-2').append(elementHtml);
+        }
+    }
+
+    function Line3SelectElementOfXAxis(selectElement, tableId, columnId) {
+        Line3SelectElement(selectElement);
+
+        // AJAX参数
+        var param = {
+            'tableId': tableId,
+            'columnId': columnId
+        };
+
+        drawChartPreviewChartObj.showLoading();
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/wchart/draw/getElement',
+            data: param,
+            success: function (ReturnMsg) {
+
+                drawChartPreviewChartObj.hideLoading();
+
+                var returnCode = ReturnMsg.code;
+                var returnMsg = ReturnMsg.msg;
+                var returnResult = ReturnMsg.result;
+
+                if (1 == returnCode) {
+                    var data = ["获取(1)", "获取(2)", "获取(3)", "获取(4)", "获取(5)", "获取(6)"];
+                    drawChartPreviewChartObjOption = {
+                        xAxis: {
+                            data: data
+                        }
+                    };
+                    drawChartPreviewChartObj.setOption(drawChartPreviewChartObjOption);
+                }
+                else {
+                    //$.pnotify({title: '警告', text: returnMsg, type: 'info', delay: 3000});
+                }
+            }
+        });
+    }
+
+    function Line3SelectElementOfYAxis(selectElement, tableId, columnId) {
+        Line3SelectElement(selectElement);
+
+        // AJAX参数
+        var param = {
+            'tableId': tableId,
+            'columnId': columnId
+        };
+
+        drawChartPreviewChartObj.showLoading();
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/wchart/draw/getElement',
+            data: param,
+            success: function (ReturnMsg) {
+
+                drawChartPreviewChartObj.hideLoading();
+
+                var returnCode = ReturnMsg.code;
+                var returnMsg = ReturnMsg.msg;
+                var returnResult = ReturnMsg.result;
+
+                if (1 == returnCode) {
+                    var data = [15, 23, 30, 20, 10, 10];
+                    drawChartPreviewChartObjOption = {
+                        series: [{
+                            data: data
+                        }]
+                    };
+                    drawChartPreviewChartObj.setOption(drawChartPreviewChartObjOption);
+                }
+                else {
+                    //$.pnotify({title: '警告', text: returnMsg, type: 'info', delay: 3000});
+                }
+            }
+        });
+    }
+
+    function Line3DeleteElementOfXAxis(selectElement) {
+        if (Line3DeleteElement(selectElement)) {
+            var data = ["样例(1)", "样例(2)", "样例(3)", "样例(4)", "样例(5)", "样例(6)"];
+            drawChartPreviewChartObjOption = {
+                xAxis: {
+                    data: data
+                }
+            };
+            drawChartPreviewChartObj.setOption(drawChartPreviewChartObjOption);
+        }
+    }
+
+    function Line3DeleteElementOfYAxis(selectElement) {
+        if (Line3DeleteElement(selectElement)) {
+            var data = [5, 20, 36, 10, 10, 20];
+            drawChartPreviewChartObjOption = {
+                series: [{
+                    data: data
+                }]
+            };
+            drawChartPreviewChartObj.setOption(drawChartPreviewChartObjOption);
+        }
+    }
+
+    function Line3BeforeSave() {
+        var returnObj = {
+            isSave: true,
+            message: ""
+        };
+
+        var yAxis = $('#element-2 > .active > input').val();
+        if (yAxis == undefined) {
+            returnObj.isSave = false;
+            returnObj.message = "请选择yAxis";
+        }
+
+        var xAxis = $('#element-1 > .active > input').val();
+        if (xAxis == undefined) {
+            returnObj.isSave = false;
+            returnObj.message = "请选择xAxis";
+        }
+
+        var description = $('#drawChartElementDescription').val();
+        if (description.trim() == "") {
+            returnObj.isSave = false;
+            returnObj.message = "请填写描述";
+        }
+
+        var title = $('#drawChartElementTitle').val();
+        if (title.trim() == "") {
+            returnObj.isSave = false;
+            returnObj.message = "请填写标题";
+        }
+        return returnObj;
+    }
+    function Line3Save() {
+        var beforeSaveCheck = Line3BeforeSave();
+        if (beforeSaveCheck.isSave) {
+            var userId = $('#currentUserId').val();
+            var title = $('#drawChartElementTitle').val();
+            var description = $('#drawChartElementDescription').val();
+            var xAxis = $('#element-1 > .active > input').val().split("-");
+            var yAxis = $('#element-2 > .active > input').val().split("-");
+            var element = {
+                'xAxis':{
+                    'tableName':xAxis[0],
+                    'columnName':xAxis[1]
+                },
+                'yAxis':{
+                    'tableName':yAxis[0],
+                    'columnName':yAxis[1]
+                }
+            };
+            // AJAX参数
+            var param = {
+                'type': _GLOBAL_CHART_TYPE_LINE_BASE,
+                'userId':userId,
+                'title': title,
+                'description': description,
+                'element': JSON.stringify(element)
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/wchart/draw/save',
+                data: param,
+                success: function (ReturnMsg) {
+
+                    var returnCode = ReturnMsg.code;
+                    var returnMsg = ReturnMsg.msg;
+                    var returnResult = ReturnMsg.result;
+
+                    if (1 == returnCode) {
+                        $('.nav.nav-tabs.nav-justified > li:nth-child(1)').removeClass('active');
+                        $('.nav.nav-tabs.nav-justified > li:nth-child(2)').addClass('active');
+                        $('#draw').removeClass('active');
+                        $('#box').addClass('active');
+                        $('#box').load('wchart-box.html');
+                        $('#draw').load('wchart-draw.html');
+                    }
+                    else {
+                        //$.pnotify({title: '警告', text: returnMsg, type: 'info', delay: 3000});
+                    }
+                }
+            });
+        } else {
+            console.log(beforeSaveCheck.message);
+        }
+
+    }
+</script>
