@@ -1,0 +1,122 @@
+<!--去除重复元素-->
+<!DOCTYPE html>
+<html lang="ch-cn">
+<head>
+    　　<meta charset="utf-8">
+    　　
+    <style type="text/css">
+
+
+    </style>
+</head>
+<body  >
+<script language="JavaScript">
+    <!--
+    var arrData=new Array();
+    for(var i=0; i<1000; i++)
+    {
+        arrData[arrData.length] = String.fromCharCode(Math.floor(Math.random()*26)+97);
+    }
+    //document.write(arrData+"<br/>");
+
+    //方法一，普通遍历
+    function myArray_Unique(myArray)
+    {
+        //var myArray=new Array("a","a","c","a","c","d","e","f","f","g","h","g","h","k");
+        var haha=myArray;
+        for(var i=0;i<myArray.length;i++)
+        {
+            for(var j=0;j<myArray.length;j++)
+            {
+                temp=myArray[i];
+                if((i+j+1)<myArray.length&&temp==myArray[i+j+1]) //如果当前元素与后一个元素相等
+                    haha.splice(i+j+1,1); //然后就移除下一个元素
+            }
+        }
+        return haha;
+    }
+
+    //方法二
+    function getUnique(someArray)
+    {
+        tempArray=someArray.slice(0);//复制数组到临时数组
+        for(var i=0;i<tempArray.length;i++)
+        {
+            for(var j=i+1;j<tempArray.length;)
+            {
+                if(tempArray[j]==tempArray[i])
+                //后面的元素若和待比较的相同，则删除并计数；
+                //删除后，后面的元素会自动提前，所以指针j不移动
+                {
+                    tempArray.splice(j,1);
+                }
+                else
+                {
+                    j++;
+                }
+                //不同，则指针移动
+            }
+        }
+        return tempArray;
+    }
+
+    //方法三 正则表达式 -- 适用于字符型数组
+    function getUnique2(A)
+    {
+        var str = "\x0f"+ A.join("\x0f");
+        while(/(\w+)[^\1]*\1/.test(str))
+            str = str.replace("\x0f"+ RegExp.$1, "");
+        return str.substr(1).split("\x0f");
+    }
+
+    //方法四 关联结构
+    Array.prototype.unique = array_unique;
+    function array_unique()
+    {
+        var o = new Object();
+        for (var i=0,j=0; i<this.length; i++)
+        {
+            if (typeof o[this[i]] == 'undefined')
+            {
+                o[this[i]] = j++;
+            }
+        }
+        this.length = 0;
+        for (var key in o)
+        {
+            this[o[key]] = key;
+        }
+        return this;
+    }
+
+    var d = new Date().getTime();
+    document.write(myArray_Unique(arrData));
+    d = new Date().getTime()-d;
+    document.write("<br/>2000元素 方法一算法计耗时 "+ d +" 毫秒!<br/><br/>"); //大约370ms~390ms左右
+
+    var d = new Date().getTime();
+    document.write(getUnique(arrData));
+    d = new Date().getTime()-d;
+    document.write("<br/>2000元素 方法二算法计耗时 "+ d +" 毫秒!<br/><br/>"); //大约360ms~380ms左右
+
+    var d = new Date().getTime();
+    document.write(getUnique2(arrData));
+    d = new Date().getTime()-d;
+    document.write("<br/>2000元素 正则表达式 方法三算法计耗时 "+ d +" 毫秒!<br/><br/>");//大约80ms左右
+
+    var d = new Date().getTime();
+    document.write(arrData.unique());
+    d = new Date().getTime()-d;
+    document.write("<br/>2000元素 关联结构 方法四算法计耗时 "+ d +" 毫秒!<br /><br />");//大约0ms~10ms左右
+
+    //-->
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
